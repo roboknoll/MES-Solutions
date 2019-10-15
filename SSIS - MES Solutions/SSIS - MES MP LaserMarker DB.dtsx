@@ -1,0 +1,2377 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/21/2015 10:36:03 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="PXLT44241"
+  DTS:CreatorName="DANFOSS\rknoll"
+  DTS:DTSID="{4B8DA8E1-5DD7-4B85-8E21-1C667196BC85}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1301.433"
+  DTS:LocaleID="1051"
+  DTS:ObjectName="SSIS - MES MP LaserMarker DB"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="136"
+  DTS:VersionGUID="{ED2578AC-9244-476A-8195-448F829C5536}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Avantek]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{58D60321-8732-4CE9-B5DB-F0F2E96D981D}"
+      DTS:ObjectName="Avantek">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=PXDBS30\Production;Initial Catalog=Avantek;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{24E960E0-F71E-4651-90CE-A4B12CF449E3}"
+      DTS:ObjectName="SAPRecepients">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">rknoll@danfoss.com</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{A8E41CFF-0045-49FA-BA73-842DA086E086}"
+      DTS:ObjectName="SITAdminRecipients">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">rknoll@danfoss.com</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A6F94F05-36D7-4DCE-845B-546BF8992F62}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FilteredLabelCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Confirm LaserMarker"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D64808B5-9AA3-43DD-8D64-34CEA599E8BD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Confirm LaserMarker"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+          SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_Confirm] " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Info for SAP Users"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{2FE14489-4DAE-4425-96FE-52E70238EE1D}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Info for SAP Users">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:DTSID="{C86C1401-86EC-43A6-B88A-5667CA25020F}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="User"
+          DTS:ObjectName="FilteredLabelCount">
+          <DTS:VariableValue
+            DTS:DataType="2">0</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Info for SAP Users\Check for labels corrections"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{415B023D-F4B7-4D5C-998B-3E8736A58EC6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Check for labels corrections"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="SELECT &#xA;&#x9;COUNT(*) &#xA;FROM &#xA;&#x9;[dbo].[tblSKMES_LaserMarker_Filtered]"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::FilteredLabelCount" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Info for SAP Users\Send Mail to SAP Users"
+          DTS:CreationName="Microsoft.SendMailTask"
+          DTS:Description="Send Mail Task"
+          DTS:DTSID="{25B25661-3132-43A3-81BD-6B5C802F536E}"
+          DTS:ExecutableType="Microsoft.SendMailTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Send Mail to SAP Users"
+          DTS:TaskContact="Send Mail Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:PropertyExpression
+            DTS:Name="CCLine">@[$Package::SITAdminRecipients]</DTS:PropertyExpression>
+          <DTS:PropertyExpression
+            DTS:Name="ToLine">@[$Package::SAPRecepients]</DTS:PropertyExpression>
+          <DTS:ObjectData>
+            <SendMailTask:SendMailTaskData
+              SendMailTask:SMTPServer="{FDF11B5D-DE9F-419F-9CE4-541426A42889}"
+              SendMailTask:From="pxdbs01@danfoss.com"
+              SendMailTask:To="rknoll@danfoss.com"
+              SendMailTask:CC="rknoll@danfoss.com"
+              SendMailTask:Subject="Oprava štítkov"
+              SendMailTask:Priority="High"
+              SendMailTask:MessageSource="Vyskytli sa nejednoznačné štítky.&#xA;&#xA;&#xA;&#xA;Skontrolujte na linke&#xA;&#xA; http://pxweb02/lasermarker&#xA;&#xA;&#xA;" xmlns:SendMailTask="www.microsoft.com/sqlserver/dts/tasks/sendmailtask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Info for SAP Users.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{8CD0A67A-0855-4CEB-8C4C-C5CD289964CE}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[User::FilteredLabelCount] &gt; 0"
+          DTS:From="Package\Info for SAP Users\Check for labels corrections"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Info for SAP Users\Send Mail to SAP Users" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\LaserMarker"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{9C46FD65-B6CC-4DF0-B77E-7878229DAF2E}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="LaserMarker">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Add ApplyFoil"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5B0CAB5B-AE6A-406B-8080-C8C0A4FD9A85}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Add ApplyFoil"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_AddFoil]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Add DMX"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8D83CED2-2E2C-4C3C-8054-3F304228E353}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Add DMX"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_DMXCode]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Add MMC Layout ID"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{E2481387-6163-4337-8605-73D42C59E19A}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Add MMC Layout ID"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_LayoutID]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Correct Customer MatNr"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1EA6575C-45CD-44AE-87B4-39C81564BA60}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Correct Customer MatNr"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_CorrectCustMatNo] " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Filtered Incomplet Data"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8537C58E-38A6-4074-812A-0F2C8045D68B}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Filtered Incomplet Data"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_Filter]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Read NamePlates"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{79113CB3-A88A-4E86-9675-4B8DE8B6C03C}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Read NamePlates"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="spSKMES_LaserMarker_Read"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">EXEC [dbo].[spSKMES_LaserMarker_Read]</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1250</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Connections[OleDbConnection]"
+                      connectionManagerID="{6C688564-39D5-4888-9961-F21D942D3DAA}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MESLOCAL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[SERNR]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[SERNR]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[SERNR]"
+                          name="SERNR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MATNR]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[MATNR]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MATNR]"
+                          name="MATNR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[ZSDMODCODE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[ZSDMODCODE]"
+                          length="150"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[ZSDMODCODE]"
+                          name="ZSDMODCODE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[KDAUF]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[KDAUF]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[KDAUF]"
+                          name="KDAUF"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[NAME1]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[NAME1]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[NAME1]"
+                          name="NAME1"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[NAMEPLATE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[NAMEPLATE]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[NAMEPLATE]"
+                          name="NAMEPLATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[PRODUCTLINE]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[PRODUCTLINE]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[PRODUCTLINE]"
+                          name="PRODUCTLINE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MMCSPLIT]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[MMCSPLIT]"
+                          length="150"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MMCSPLIT]"
+                          name="MMCSPLIT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MATNR_KU]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[MATNR_KU]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MATNR_KU]"
+                          name="MATNR_KU"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[AUFNR]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[AUFNR]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[AUFNR]"
+                          name="AUFNR"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[SERNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="SERNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[MATNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[ZSDMODCODE]"
+                          dataType="wstr"
+                          length="150"
+                          name="ZSDMODCODE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[KDAUF]"
+                          dataType="wstr"
+                          length="50"
+                          name="KDAUF" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[NAME1]"
+                          dataType="wstr"
+                          length="50"
+                          name="NAME1" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[NAMEPLATE]"
+                          dataType="wstr"
+                          length="50"
+                          name="NAMEPLATE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[PRODUCTLINE]"
+                          dataType="i4"
+                          name="PRODUCTLINE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[MMCSPLIT]"
+                          dataType="wstr"
+                          length="150"
+                          name="MMCSPLIT" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[MATNR_KU]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR_KU" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].ExternalColumns[AUFNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="AUFNR" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[SERNR]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[SERNR]"
+                          name="SERNR" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[AUFNR]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[AUFNR]"
+                          name="AUFNR" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[MATNR]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[MATNR]"
+                          name="MATNR" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[ZSDMODCODE]"
+                          dataType="wstr"
+                          length="150"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[ZSDMODCODE]"
+                          name="ZSDMODCODE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[KDAUF]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[KDAUF]"
+                          name="KDAUF" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[NAME1]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[NAME1]"
+                          name="NAME1" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[NAMEPLATE]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[NAMEPLATE]"
+                          name="NAMEPLATE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[PRODUCTLINE]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[PRODUCTLINE]"
+                          name="PRODUCTLINE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[MMCSPLIT]"
+                          dataType="wstr"
+                          length="150"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[MMCSPLIT]"
+                          name="MMCSPLIT" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[MATNR_KU]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[MATNR_KU]"
+                          name="MATNR_KU" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="tblSKMES_LaserMarker_Temp"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[tblSKMES_LaserMarker_Temp]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1250</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Connections[OleDbConnection]"
+                      connectionManagerID="{6C688564-39D5-4888-9961-F21D942D3DAA}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MESLOCAL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[SERNR]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="SERNR"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[SERNR]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[SERNR]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[MATNR]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="MATNR"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MATNR]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MATNR]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[NAMEPLATE]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="NAMEPLATE"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[NAMEPLATE]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[NAMEPLATE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[PRODUCTLINE]"
+                          cachedDataType="i4"
+                          cachedName="PRODUCTLINE"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[PRODUCTLINE]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[PRODUCTLINE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[MMCSPLIT]"
+                          cachedDataType="wstr"
+                          cachedLength="150"
+                          cachedName="MMCSPLIT"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MMCSPLIT]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MMCSPLIT]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[MATNR_KU]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="MATNR_KU"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MATNR_KU]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[MATNR_KU]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[ZSDMODCODE]"
+                          cachedDataType="wstr"
+                          cachedLength="150"
+                          cachedName="ZSDMODCODE"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MMC]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[ZSDMODCODE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[KDAUF]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="KDAUF"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[ORDERNO]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[KDAUF]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[NAME1]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="NAME1"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[NAME1]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].Columns[AUFNR]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="AUFNR"
+                          externalMetadataColumnId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[AUFNR]"
+                          lineageId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output].Columns[AUFNR]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[SERNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="SERNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MATNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MMC]"
+                          dataType="wstr"
+                          length="150"
+                          name="MMC" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[ORDERNO]"
+                          dataType="wstr"
+                          length="50"
+                          name="ORDERNO" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER]"
+                          dataType="wstr"
+                          length="50"
+                          name="CUSTOMER" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[NAMEPLATE]"
+                          dataType="wstr"
+                          length="50"
+                          name="NAMEPLATE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[PRODUCTLINE]"
+                          dataType="wstr"
+                          length="50"
+                          name="PRODUCTLINE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MMCSPLIT]"
+                          dataType="wstr"
+                          length="153"
+                          name="MMCSPLIT" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[ZINNAMEPLATEFILE]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZINNAMEPLATEFILE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[ZPRODUCED]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZPRODUCED" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[ZMANIPULATED]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZMANIPULATED" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[ZMMCID]"
+                          dataType="i4"
+                          name="ZMMCID" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[MATNR_KU]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR_KU" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[TAGSIZE]"
+                          dataType="i4"
+                          name="TAGSIZE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[APPLYFOIL]"
+                          dataType="bool"
+                          name="APPLYFOIL" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[DMXCODE]"
+                          dataType="wstr"
+                          length="200"
+                          name="DMXCODE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[AUFNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="AUFNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[Code]"
+                          dataType="wstr"
+                          length="50"
+                          name="Code" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input].ExternalColumns[DMXCODE2]"
+                          dataType="wstr"
+                          length="200"
+                          name="DMXCODE2" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\LaserMarker\Read NamePlates.Paths[OLE DB Source Output]"
+                  endId="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Split MMC And Custumer Material No"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{95A958D4-FCFC-4519-AC21-6C1511079E14}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Split MMC And Custumer Material No"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_SplitMMC]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Truncate tblSKMES_LaserMarker_Temp"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{680CBABA-CE37-4FE0-8878-015B515B2E4C}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate tblSKMES_LaserMarker_Temp"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6C688564-39D5-4888-9961-F21D942D3DAA}"
+              SQLTask:SqlStatementSource="EXEC [dbo].[spSKMES_LaserMarker_Truncate]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\LaserMarker\Write to LM"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{0A9FB726-7DC6-4D2B-97CA-43B92896816D}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Write to LM"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\LaserMarker\Write to LM\SourceData"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="SourceData"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[SourceData]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1250</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\LaserMarker\Write to LM\SourceData.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Avantek]"
+                      connectionManagerRefId="Package.ConnectionManagers[Avantek]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[SERNR]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="SERNR"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[SERNR]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[SERNR]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[MMC]"
+                          cachedDataType="wstr"
+                          cachedLength="150"
+                          cachedName="MMC"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MMC]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MMC]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[ORDERNO]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="ORDERNO"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ORDERNO]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ORDERNO]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[CUSTOMER]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="CUSTOMER"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[CUSTOMER]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[NAMEPLATE]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="NAMEPLATE"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[NAMEPLATE]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[NAMEPLATE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[PRODUCTLINE]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="PRODUCTLINE"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[PRODUCTLINE]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[PRODUCTLINE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[MMCSPLIT]"
+                          cachedDataType="wstr"
+                          cachedLength="153"
+                          cachedName="MMCSPLIT"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MMCSPLIT]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MMCSPLIT]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[ZINNAMEPLATEFILE]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="ZINNAMEPLATEFILE"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZINNAMEPLATEFILE]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZINNAMEPLATEFILE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[ZPRODUCED]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="ZPRODUCED"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZPRODUCED]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZPRODUCED]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[ZMANIPULATED]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="ZMANIPULATED"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZMANIPULATED]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZMANIPULATED]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[ZMMCID]"
+                          cachedDataType="i4"
+                          cachedName="ZMMCID"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZMMCID]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZMMCID]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[MATNR_KU]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="MATNR_KU"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MATNR_KU]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MATNR_KU]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[TAGSIZE]"
+                          cachedDataType="i4"
+                          cachedName="TAGSIZE"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[TAGSIZE]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[TAGSIZE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[APPLYFOIL]"
+                          cachedDataType="bool"
+                          cachedName="APPLYFOIL"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[APPLYFOIL]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[APPLYFOIL]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[DMXCODE]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="DMXCODE"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[DMXCODE]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[DMXCODE]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[AUFNR]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="AUFNR"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[AUFNR]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[AUFNR]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[MATNR]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
+                          cachedName="MATNR"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MATNR]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MATNR]" />
+                        <inputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].Columns[DMXCODE2]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="DMXCODE2"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[DMXCODE2]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[DMXCODE2]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[SERNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="SERNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MMC]"
+                          dataType="wstr"
+                          length="150"
+                          name="MMC" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ORDERNO]"
+                          dataType="wstr"
+                          length="50"
+                          name="ORDERNO" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER]"
+                          dataType="wstr"
+                          length="50"
+                          name="CUSTOMER" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[NAMEPLATE]"
+                          dataType="wstr"
+                          length="50"
+                          name="NAMEPLATE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[PRODUCTLINE]"
+                          dataType="wstr"
+                          length="50"
+                          name="PRODUCTLINE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MMCSPLIT]"
+                          dataType="wstr"
+                          length="153"
+                          name="MMCSPLIT" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZINNAMEPLATEFILE]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZINNAMEPLATEFILE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZPRODUCED]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZPRODUCED" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZMANIPULATED]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZMANIPULATED" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ZMMCID]"
+                          dataType="i4"
+                          name="ZMMCID" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MATNR_KU]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR_KU" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[TAGSIZE]"
+                          dataType="i4"
+                          name="TAGSIZE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[APPLYFOIL]"
+                          dataType="bool"
+                          name="APPLYFOIL" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[DMXCODE]"
+                          dataType="wstr"
+                          length="200"
+                          name="DMXCODE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[AUFNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="AUFNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[MATNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input].ExternalColumns[DMXCODE2]"
+                          dataType="wstr"
+                          length="200"
+                          name="DMXCODE2" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\LaserMarker\Write to LM\SourceData.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Write to LM\SourceData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\SourceData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Write to LM\SourceData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="tblSKMES_LaserMarker_Temp"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[tblSKMES_LaserMarker_Temp]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1250</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Connections[OleDbConnection]"
+                      connectionManagerID="{6C688564-39D5-4888-9961-F21D942D3DAA}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[MESLOCAL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[SERNR]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[SERNR]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[SERNR]"
+                          name="SERNR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MATNR]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MATNR]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MATNR]"
+                          name="MATNR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MMC]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MMC]"
+                          length="150"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MMC]"
+                          name="MMC"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ORDERNO]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ORDERNO]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ORDERNO]"
+                          name="ORDERNO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[CUSTOMER]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[CUSTOMER]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[CUSTOMER]"
+                          name="CUSTOMER"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[NAMEPLATE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[NAMEPLATE]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[NAMEPLATE]"
+                          name="NAMEPLATE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[PRODUCTLINE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[PRODUCTLINE]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[PRODUCTLINE]"
+                          name="PRODUCTLINE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MMCSPLIT]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MMCSPLIT]"
+                          length="153"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MMCSPLIT]"
+                          name="MMCSPLIT"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZINNAMEPLATEFILE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZINNAMEPLATEFILE]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZINNAMEPLATEFILE]"
+                          name="ZINNAMEPLATEFILE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZPRODUCED]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZPRODUCED]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZPRODUCED]"
+                          name="ZPRODUCED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZMANIPULATED]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZMANIPULATED]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZMANIPULATED]"
+                          name="ZMANIPULATED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZMMCID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZMMCID]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[ZMMCID]"
+                          name="ZMMCID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MATNR_KU]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MATNR_KU]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[MATNR_KU]"
+                          name="MATNR_KU"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[TAGSIZE]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[TAGSIZE]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[TAGSIZE]"
+                          name="TAGSIZE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[APPLYFOIL]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[APPLYFOIL]"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[APPLYFOIL]"
+                          name="APPLYFOIL"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[DMXCODE]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[DMXCODE]"
+                          length="200"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[DMXCODE]"
+                          name="DMXCODE"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[AUFNR]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[AUFNR]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[AUFNR]"
+                          name="AUFNR"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[Code]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[Code]"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[Code]"
+                          name="Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[DMXCODE2]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[DMXCODE2]"
+                          length="200"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].Columns[DMXCODE2]"
+                          name="DMXCODE2"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[SERNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="SERNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MATNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MMC]"
+                          dataType="wstr"
+                          length="150"
+                          name="MMC" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ORDERNO]"
+                          dataType="wstr"
+                          length="50"
+                          name="ORDERNO" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[CUSTOMER]"
+                          dataType="wstr"
+                          length="50"
+                          name="CUSTOMER" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[NAMEPLATE]"
+                          dataType="wstr"
+                          length="50"
+                          name="NAMEPLATE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[PRODUCTLINE]"
+                          dataType="wstr"
+                          length="50"
+                          name="PRODUCTLINE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MMCSPLIT]"
+                          dataType="wstr"
+                          length="153"
+                          name="MMCSPLIT" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZINNAMEPLATEFILE]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZINNAMEPLATEFILE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZPRODUCED]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZPRODUCED" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZMANIPULATED]"
+                          dataType="wstr"
+                          length="50"
+                          name="ZMANIPULATED" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[ZMMCID]"
+                          dataType="i4"
+                          name="ZMMCID" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[MATNR_KU]"
+                          dataType="wstr"
+                          length="50"
+                          name="MATNR_KU" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[TAGSIZE]"
+                          dataType="i4"
+                          name="TAGSIZE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[APPLYFOIL]"
+                          dataType="bool"
+                          name="APPLYFOIL" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[DMXCODE]"
+                          dataType="wstr"
+                          length="200"
+                          name="DMXCODE" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[AUFNR]"
+                          dataType="wstr"
+                          length="50"
+                          name="AUFNR" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[Code]"
+                          dataType="wstr"
+                          length="50"
+                          name="Code" />
+                        <externalMetadataColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output].ExternalColumns[DMXCODE2]"
+                          dataType="wstr"
+                          length="200"
+                          name="DMXCODE2" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[SERNR]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[SERNR]"
+                          name="SERNR" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MATNR]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MATNR]"
+                          name="MATNR" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MMC]"
+                          dataType="wstr"
+                          length="150"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MMC]"
+                          name="MMC" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ORDERNO]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ORDERNO]"
+                          name="ORDERNO" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[CUSTOMER]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[CUSTOMER]"
+                          name="CUSTOMER" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[NAMEPLATE]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[NAMEPLATE]"
+                          name="NAMEPLATE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[PRODUCTLINE]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[PRODUCTLINE]"
+                          name="PRODUCTLINE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MMCSPLIT]"
+                          dataType="wstr"
+                          length="153"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MMCSPLIT]"
+                          name="MMCSPLIT" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZINNAMEPLATEFILE]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZINNAMEPLATEFILE]"
+                          name="ZINNAMEPLATEFILE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZPRODUCED]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZPRODUCED]"
+                          name="ZPRODUCED" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZMANIPULATED]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZMANIPULATED]"
+                          name="ZMANIPULATED" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZMMCID]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ZMMCID]"
+                          name="ZMMCID" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MATNR_KU]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[MATNR_KU]"
+                          name="MATNR_KU" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[TAGSIZE]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[TAGSIZE]"
+                          name="TAGSIZE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[APPLYFOIL]"
+                          dataType="bool"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[APPLYFOIL]"
+                          name="APPLYFOIL" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[DMXCODE]"
+                          dataType="wstr"
+                          length="200"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[DMXCODE]"
+                          name="DMXCODE" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[Code]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[Code]"
+                          name="Code" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[DMXCODE2]"
+                          dataType="wstr"
+                          length="200"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[DMXCODE2]"
+                          name="DMXCODE2" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[AUFNR]"
+                          dataType="wstr"
+                          length="50"
+                          lineageId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Error Output].Columns[AUFNR]"
+                          name="AUFNR" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\LaserMarker\Write to LM.Paths[OLE DB Source Output]"
+                  endId="Package\LaserMarker\Write to LM\SourceData.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{B1FF1B02-9154-4BC9-81A3-989CA5A49E93}"
+          DTS:From="Package\LaserMarker\Truncate tblSKMES_LaserMarker_Temp"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\LaserMarker\Read NamePlates" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{5526E89C-AB93-4E48-9667-036169B9FC0C}"
+          DTS:From="Package\LaserMarker\Read NamePlates"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\LaserMarker\Add MMC Layout ID" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{57E4DA48-FC50-460F-A067-DC406DD15C6A}"
+          DTS:From="Package\LaserMarker\Add MMC Layout ID"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\LaserMarker\Split MMC And Custumer Material No" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{9FE2FA13-7760-47B3-925B-2BCE92E18C45}"
+          DTS:From="Package\LaserMarker\Split MMC And Custumer Material No"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\LaserMarker\Filtered Incomplet Data" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{EDBF9B97-20B5-4603-AC24-45BAE2FDF78E}"
+          DTS:From="Package\LaserMarker\Filtered Incomplet Data"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\LaserMarker\Correct Customer MatNr" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{E461C523-DFF3-45BB-B2E1-1DB26ABA5A0A}"
+          DTS:From="Package\LaserMarker\Correct Customer MatNr"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\LaserMarker\Add ApplyFoil" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint 6]"
+          DTS:CreationName=""
+          DTS:DTSID="{356E7068-FF62-43C8-B8C5-7D518A3593B9}"
+          DTS:From="Package\LaserMarker\Add ApplyFoil"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 6"
+          DTS:To="Package\LaserMarker\Add DMX" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\LaserMarker.PrecedenceConstraints[Constraint 7]"
+          DTS:CreationName=""
+          DTS:DTSID="{698B5B96-574D-4620-92CE-3015B46AEC0B}"
+          DTS:From="Package\LaserMarker\Add DMX"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 7"
+          DTS:To="Package\LaserMarker\Write to LM" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Send Alert"
+      DTS:CreationName="Microsoft.SendMailTask"
+      DTS:Description="Send Mail Task"
+      DTS:DTSID="{EF17B865-3D57-4039-B15D-1DFF9FFEDCC2}"
+      DTS:ExecutableType="Microsoft.SendMailTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Send Alert"
+      DTS:TaskContact="Send Mail Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="CCLine">@[$Package::SITAdminRecipients]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ToLine">@[$Package::SAPRecepients]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <SendMailTask:SendMailTaskData
+          SendMailTask:SMTPServer="{FDF11B5D-DE9F-419F-9CE4-541426A42889}"
+          SendMailTask:From="pxdbs01@danfoss.com"
+          SendMailTask:To="rknoll@danfoss.com"
+          SendMailTask:CC="rknoll@danfoss.com"
+          SendMailTask:Subject="LaserMarker"
+          SendMailTask:Priority="High"
+          SendMailTask:MessageSource="Failed preparation data for LaserMarker (Avantek)." xmlns:SendMailTask="www.microsoft.com/sqlserver/dts/tasks/sendmailtask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Send Alert 1"
+      DTS:CreationName="Microsoft.SendMailTask"
+      DTS:Description="Send Mail Task"
+      DTS:DTSID="{1A5E33A4-CA08-4916-829E-4AF70F124DE5}"
+      DTS:ExecutableType="Microsoft.SendMailTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Send Alert 1"
+      DTS:TaskContact="Send Mail Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="CCLine">@[$Package::SITAdminRecipients]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ToLine">@[$Package::SAPRecepients]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <SendMailTask:SendMailTaskData
+          SendMailTask:SMTPServer="{FDF11B5D-DE9F-419F-9CE4-541426A42889}"
+          SendMailTask:From="pxdbs01@danfoss.com"
+          SendMailTask:To="rknoll@danfoss.com"
+          SendMailTask:CC="rknoll@danfoss.com"
+          SendMailTask:Subject="LaserMarker"
+          SendMailTask:Priority="High"
+          SendMailTask:MessageSource="Failed &#xA;&#xA;customer material number check. " xmlns:SendMailTask="www.microsoft.com/sqlserver/dts/tasks/sendmailtask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{E68D8C18-5EC2-49C7-89ED-01473EB4FB68}"
+      DTS:From="Package\LaserMarker"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Send Alert"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{BBAEF064-CF30-4AA9-916C-CFDB4408FF97}"
+      DTS:From="Package\LaserMarker"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Confirm LaserMarker" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{3B2A02BE-716F-4CA4-B253-422B8CC89F2C}"
+      DTS:From="Package\Confirm LaserMarker"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Info for SAP Users" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{281F564E-FAD8-422C-874C-E278A7BD5AD1}"
+      DTS:From="Package\Info for SAP Users"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Send Alert 1"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\Confirm LaserMarker"
+          TopLeft="701.828586762779,37.215686306786" />
+        <NodeLayout
+          Size="209.6,41.6"
+          Id="Package\Info for SAP Users\Check for labels corrections"
+          TopLeft="16.3142992652195,18.6823577780212" />
+        <NodeLayout
+          Size="209.6,41.6"
+          Id="Package\Info for SAP Users\Send Mail to SAP Users"
+          TopLeft="18.0285850086993,99.5294159430534" />
+        <EdgeLayout
+          Id="Package\Info for SAP Users.PrecedenceConstraints[Constraint]"
+          TopLeft="121.971442136959,60.2823577780212">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.2470581650322"
+              Start="0,0"
+              End="0,31.7470581650322">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.7470581650322" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,7.87352908251612,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="243.2,158.4"
+          Size="243.2,201.6"
+          Id="Package\Info for SAP Users"
+          TopLeft="669.028586762778,114.15686032785" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Add ApplyFoil"
+          TopLeft="316.742868901597,230.141567242962" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Add DMX"
+          TopLeft="14.9333402588256,230.141567242962" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Add MMC Layout ID"
+          TopLeft="316.742868901597,84.9282354751508" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Correct Customer MatNr"
+          TopLeft="316.107948255864,157.229019001825" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Filtered Incomplet Data"
+          TopLeft="14.9333402588256,157.229019001825" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Read NamePlates"
+          TopLeft="316.742868901597,12.321569591245" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Split MMC And Custumer Material No"
+          TopLeft="14.9333402588256,84.9282354751508" />
+        <NodeLayout
+          Size="265.6,41.6"
+          Id="Package\LaserMarker\Truncate tblSKMES_LaserMarker_Temp"
+          TopLeft="14.9333402588256,12.321569591245" />
+        <NodeLayout
+          Size="259.2,41.6"
+          Id="Package\LaserMarker\Write to LM"
+          TopLeft="14.9333402588256,302.136468412406" />
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint]"
+          TopLeft="280.533340258826,33.121569591245">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="36.2095286427713,0"
+              Start="0,0"
+              End="28.7095286427713,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="28.7095286427713,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint 1]"
+          TopLeft="446.342868901597,53.921569591245">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.0066658839058"
+              Start="0,0"
+              End="0,23.5066658839058">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5066658839058" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint 2]"
+          TopLeft="316.742868901597,105.728235475151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-42.6095286427714,0"
+              Start="0,0"
+              End="-35.1095286427714,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-35.1095286427714,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint 3]"
+          TopLeft="144.533340258826,126.528235475151">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.7007835266742"
+              Start="0,0"
+              End="0,23.2007835266742">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.2007835266742" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint 4]"
+          TopLeft="274.133340258826,178.029019001825">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="41.9746079970381,0"
+              Start="0,0"
+              End="34.4746079970381,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="34.4746079970381,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint 5]"
+          TopLeft="446.02540857873,198.829019001825">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.312548241137"
+              Start="0,0"
+              End="0,23.812548241137">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.812548241137" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint 6]"
+          TopLeft="316.742868901597,250.941567242962">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-42.6095286427714,0"
+              Start="0,0"
+              End="-35.1095286427714,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-35.1095286427714,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\LaserMarker.PrecedenceConstraints[Constraint 7]"
+          TopLeft="144.533340258826,271.741567242962">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.394901169444"
+              Start="0,0"
+              End="0,22.894901169444">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.894901169444" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="596,398.4"
+          Size="596,441.6"
+          Id="Package\LaserMarker"
+          TopLeft="21.7142905459118,32.039215832947" />
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\Send Alert"
+          TopLeft="701.828586762779,432.039215832947" />
+        <NodeLayout
+          Size="177.6,41.6"
+          Id="Package\Send Alert 1"
+          TopLeft="701.828586762779,356.674513452569" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="617.714290545912,325.105882499614">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="84.1142962168672,127.733333333333"
+              Start="0,0"
+              End="76.6142962168672,127.733333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="29.8279155182635,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="29.8279155182635,0"
+                    Point2="33.8279155182635,0"
+                    Point3="33.8279155182635,4" />
+                  <mssgle:LineSegment
+                    End="33.8279155182635,123.733333333333" />
+                  <mssgle:CubicBezierSegment
+                    Point1="33.8279155182635,123.733333333333"
+                    Point2="33.8279155182635,127.733333333333"
+                    Point3="37.8279155182635,127.733333333333" />
+                  <mssgle:LineSegment
+                    End="76.6142962168672,127.733333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="18.5865678620135,-15.7490234375,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="617.714290545912,180.57254916628">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="84.1142962168672,-122.556862859494"
+              Start="0,0"
+              End="76.6142962168672,-122.556862859494">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="29.8279155182635,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="29.8279155182635,0"
+                    Point2="33.8279155182635,0"
+                    Point3="33.8279155182635,-4" />
+                  <mssgle:LineSegment
+                    End="33.8279155182635,-118.556862859494" />
+                  <mssgle:CubicBezierSegment
+                    Point1="33.8279155182635,-118.556862859494"
+                    Point2="33.8279155182635,-122.556862859494"
+                    Point3="37.8279155182635,-122.556862859494" />
+                  <mssgle:LineSegment
+                    End="76.6142962168672,-122.556862859494" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="790.628586762778,78.815686306786">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.3411740210641"
+              Start="0,0"
+              End="0,27.8411740210641">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.8411740210641" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="790.628586762778,315.75686032785">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.9176531247188"
+              Start="0,0"
+              End="0,33.4176531247188">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.4176531247188" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-15.24134765625,11.8343148436094,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\LaserMarker\Read NamePlates">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="246.4,41.6"
+          Id="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp"
+          TopLeft="15.0857147333573,100.94117788625" />
+        <NodeLayout
+          Size="246.4,41.6"
+          Id="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read"
+          TopLeft="15.0857147333573,28.1411768652576" />
+        <EdgeLayout
+          Id="Package\LaserMarker\Read NamePlates.Paths[OLE DB Source Output]"
+          TopLeft="138.285714733357,69.7411768652576">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.2000010209924"
+              Start="0,0"
+              End="0,23.7000010209924">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.7000010209924" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LaserMarker\Read NamePlates\spSKMES_LaserMarker_Read">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LaserMarker\Read NamePlates\tblSKMES_LaserMarker_Temp">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\LaserMarker\Write to LM">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="237.6,41.6"
+          Id="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp"
+          TopLeft="21.6,16.4" />
+        <NodeLayout
+          Size="237.6,41.6"
+          Id="Package\LaserMarker\Write to LM\SourceData"
+          TopLeft="21.6,98.4" />
+        <EdgeLayout
+          Id="Package\LaserMarker\Write to LM.Paths[OLE DB Source Output]"
+          TopLeft="140.4,58">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.4"
+              Start="0,0"
+              End="0,32.9">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.9" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\LaserMarker\Write to LM\SourceData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\LaserMarker\Write to LM\tblSKMES_LaserMarker_Temp">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
